@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyUploader — Log in</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<header>
+  <a class="logo" href="./"><img src="icon.png" alt="MyUploader app icon" width="36" height="36">MyUploader</a>
+  <nav><a href="terms-of-service">Terms</a><a href="privacy-policy">Privacy</a><a class="btn small" href="login">Log in</a></nav>
+</header>
+<main class="login">
+  <img class="app-icon" src="icon.png" alt="MyUploader app icon" width="112" height="112">
+  <h1>Log in to MyUploader</h1>
+  <p class="muted">Sign in with your TikTok account. TikTok shows exactly which permissions MyUploader asks for, and you decide what to allow.</p>
+  <button class="btn" id="login" type="button">Log in with TikTok</button>
+  <p class="muted">After you approve, TikTok returns you to the MyUploader app on this computer (keep it open). Your access token is stored only on your computer.</p>
+  <p class="muted">By logging in you agree to the <a href="terms-of-service">Terms of Service</a> and <a href="privacy-policy">Privacy Policy</a>.</p>
+</main>
+<script>
+// TikTok client key is public (it is part of every authorize URL).
+const CLIENT_KEY = "sbawwg6xcqf8h7a2sg";
+const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
+document.getElementById("login").onclick = async () => {
+  // TikTok desktop PKCE: SHA-256 challenge, hex-encoded. The desktop app
+  // finishes sign-in with its own verifier when TikTok redirects back to it.
+  const verifier = hex(crypto.getRandomValues(new Uint8Array(32)));
+  const challenge = hex(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier)));
+  location.href = "https://www.tiktok.com/v2/auth/authorize/?" + new URLSearchParams({
+    client_key: CLIENT_KEY, response_type: "code", scope: "user.info.basic,video.publish,video.upload",
+    redirect_uri: "http://localhost:8765/callback/", state: "web", code_challenge: challenge,
+    code_challenge_method: "S256"});
+};
+</script>
+<footer>
+  <p>MyUploader is an independent app and is not affiliated with, endorsed or sponsored by TikTok or ByteDance. TikTok is a trademark of ByteDance Ltd.</p>
+  <p><a href="terms-of-service">Terms of Service</a> · <a href="privacy-policy">Privacy Policy</a> · <a href="mailto:infuzoriya09@gmail.com">Contact</a></p>
+</footer>
+</body>
+</html>

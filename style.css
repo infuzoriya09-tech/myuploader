@@ -13,3 +13,17 @@ h3 { font-size: 17px; margin: 24px 0 4px; }
 .hero p, .muted { color: var(--muted); }
 .steps li { margin-bottom: 10px; }
 footer { margin-top: 48px; padding-top: 16px; padding-bottom: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; }
+.logo img { border-radius: 9px; }
+nav { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 6px 18px; }
+nav a { margin-left: 0; }
+.app-icon { display: block; border-radius: 26px; margin: 40px 0 0; box-shadow: 0 8px 24px rgba(79, 70, 229, .25); }
+.hero h1 { margin-top: 16px; }
+.tagline { font-size: 20px; font-weight: 600; color: var(--fg) !important; margin: 0 0 8px; }
+.btn { display: inline-block; padding: 12px 22px; border-radius: 10px; background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff !important; font-weight: 600; text-decoration: none; border: 0; font-size: 16px; cursor: pointer; }
+.btn.small { padding: 6px 14px; font-size: 15px; }
+.btn:hover { filter: brightness(1.08); }
+.login { max-width: 440px; margin: 56px auto; text-align: center; }
+.login .app-icon { margin: 0 auto 16px; }
+.login .btn { width: 100%; margin: 16px 0 8px; }
+header { gap: 12px; }
